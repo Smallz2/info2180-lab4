@@ -1,17 +1,31 @@
 "use strict"
 
 window.onload = function () {
-	main()
+	main();
 }
 
 function main() {
 	// Handle Button Click
-	var button = document.querySelector(".search-button")
-	button.addEventListener('click', get_characters)
+	var button = document.querySelector(".search-button");
+	button.addEventListener('click', fetch_characters);
 }
 
-function get_characters() {
-	fetch('http://localhost/superheroes.php')
-	  .then(response => response.json())
-	  .then(data => console.log(data));
+function fetch_characters() {
+	fetch('http://localhost/info2180-lab4/superheroes.php')
+		.then(
+			function(response) {
+				if (response.status !== 200) {
+					console.log('Something went wrong. Status Code: ' + response.status);
+					return;
+				}
+
+				// Get the data from response 
+				response.text().then(function(promise) {
+					alert(promise);
+				});
+			}
+		)
+		.catch(function(error) {
+			console.log("Fetching error: " + error);
+		});
 }
