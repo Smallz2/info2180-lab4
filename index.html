@@ -9,17 +9,27 @@
 </head>
 <body>
 	<header>
-		
+		<h1>AVENGERS CHARACTER SEARCH</h1>
 	</header>
 	<main>
 		<div class="container">
-			<h1>Avengers Character Search</h1>
+			<div class="search-form">
+				<h5>Search by Full Name or Alias</h5>
+				<form method="GET" action="superheroes.php" id="form">
+					<input type="text" name="query" class="query_text" maxlength="30" placeholder="e.g. Captain America or Steve Rogers">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div><!--/.search-form-->
 
-			<a class="btn btn-primary search-button" href="#">Search</a>
-		</div>
+			<h1>RESULTS</h1>
+
+			<hr>
+
+			<div class="result">
+			</div>
+		</div><!--/.container-->
 	</main>
 	<footer>
-		
 	</footer>
 </body>
 </html>

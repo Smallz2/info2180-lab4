@@ -65,8 +65,41 @@ $superheroes = [
 
 ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+
+<?php 
+
+$query_string = strtoupper(trim(htmlspecialchars(strip_tags($_GET['query']))));
+
+// If not a string set value to blank
+if (is_string($query_string) !== 1) {
+  $query_string == "";
+}
+
+$found = FALSE;
+$found_hero = [];
+?>
+
+<?php if ($query_string == ""): ?>
+  <ul>
+  <?php foreach ($superheroes as $superhero): ?>
+      <li><?= $superhero['alias']; ?></li>
+  <?php endforeach; ?>
+  </ul>
+<?php else: ?>
+  <?php foreach ($superheroes as $superhero): ?>
+      <?php  
+        if (strtoupper(trim($superhero['name'])) == $query_string or strtoupper(trim($superhero['alias'])) == $query_string) {
+          $found = TRUE;
+          $found_hero = $superhero;
+        }
+      ?>
+  <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($found): ?>
+  <h3 class="mb-0"><?= $found_hero['alias']; ?></h3>
+  <h4 class="mt-0"><?= "A.K.A {$found_hero['name']}"; ?></h4>
+  <p><?= $found_hero['biography']; ?></p>
+<?php elseif ($found !== TRUE and $query_string !== "" and is_string($query_string)): ?>
+  <h4 class="text-danger">SUPERHERO NOT FOUND</h4>
+<?php endif; ?>
